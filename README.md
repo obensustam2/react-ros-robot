@@ -1,70 +1,56 @@
-# Getting Started with Create React App
+## Installations
+```bash
+sudo apt-get install ros-noetic-rosbridge-server
+sudo apt-get install ros-noetic-turtlebot3*
+npm install roslib
+npm install three
+```
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## App Creation
+```bash
+npx create-react-app react-ros-robot
+```
 
-## Available Scripts
+## App Usage 
+```bash
+npm start
+roslaunch rosbridge_server rosbridge_websocket.launch
+roslaunch turtlebot3_gazebo turtlebot3_world.launch
+roslaunch turtlebot3_navigation turtlebot3_navigation.launch map_file:=/home/oben-n/react-ros-robot/src/maps/map.yaml
+```
 
-In the project directory, you can run:
+## Information
+### EventEmitter
 
-### `npm start`
+- The EventEmitter is a module that facilitates communication/interaction between objects in Node. EventEmitter is at the core of Node asynchronous event-driven architecture. Many of Node's built-in modules inherit from EventEmitter including prominent frameworks like Express. js
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### roslibjs
 
-### `npm test`
+- roslibjs is the core JavaScript library for interacting with ROS from the browser. It uses WebSockets to connect with rosbridge and provides publishing, subscribing, service calls, actionlib, TF, URDF parsing, and other essential ROS functionality. roslibjs is developed as part of the Robot Web Tools effort.
+http://wiki.ros.org/roslibjs
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+### rosbridge_suite
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Rosbridge provides a JSON API to ROS functionality for non-ROS programs. There are a variety of front ends that interface with rosbridge, including a WebSocket server for web browsers to interact with. Rosbridge_suite is a meta-package containing rosbridge, various front end packages for rosbridge like a WebSocket package, and helper packages.
+https://wiki.ros.org/rosbridge_suite
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### rosbridge_server
 
-### `npm run eject`
+- Rosbridge server is part of the rosbridge_suite of packages, providing a WebSocket transport layer. A WebSocket is a low-latency, bidirectional communication layer between clients (web browsers) and servers. By providing a WebSocket connection, rosbridge server allows webpages to talk ROS using the rosbridge protocol.
+Rosbridge server creates a WebSocket connection and passes any JSON messages from the WebSocket to rosbridge_library, so rosbridge library can convert the JSON strings into ROS calls. The reverse also happens, with rosbridge library converting any ROS responses into JSON, then passing it to rosbridge server to send over the WebSocket connection.
+http://wiki.ros.org/rosbridge_server
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### ros2djs
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- ros2djs is the standard JavaScript 2D visualization manager for ROS. It is build ontop of roslibjs and utilizes the power of EaselJS. Many standard ROS features like maps are included as part of this library. ros2djs is developed as part of the Robot Web Tools effort.
+http://wiki.ros.org/ros2djs
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-## Learn More
+### nav2djs
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- nav2djs is a tool that allows for an easy way to display and interact with a robots autonomous navigation capabilities. The main widget renders an image of the robot's internal map (streamed as a nav_msgs/OccupancyGrid message) on an HTML5 canvas element, as well as a icon displaying the robot's current position on the map. Furthermore, users can send navigation goals to the robot by double clicking a location on the map. This widget requires the robot_pose_publisher node to be running. nav2djs is developed as part of the Robot Web Tools effort.
+http://wiki.ros.org/nav2djs
