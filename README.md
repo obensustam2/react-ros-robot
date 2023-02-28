@@ -1,3 +1,10 @@
+# ROS for Beginners III: Web-based Navigation with ROSBridge
+Purpose of the course is to leverage the use of React and JavaScript to control and monitor robot ROS navigation using Web interfaces
+<p align="center">
+  <img width="900" height="450" src="resource/media/app.png">
+  <br>App Demonstration with TurtleBot3
+</p>
+
 ## Installations
 ```bash
 sudo apt-get install ros-noetic-rosbridge-server
@@ -6,51 +13,64 @@ npm install roslib
 npm install three
 ```
 
+
 ## App Creation
 ```bash
 npx create-react-app react-ros-robot
 ```
 
-## App Usage 
+
+## How to use 
 ```bash
 npm start
 roslaunch rosbridge_server rosbridge_websocket.launch
 roslaunch turtlebot3_gazebo turtlebot3_world.launch
-roslaunch turtlebot3_navigation turtlebot3_navigation.launch map_file:=/home/oben-n/react-ros-robot/src/maps/map.yaml
+roslaunch turtlebot3_navigation turtlebot3_navigation.launch map_file:=/home/oben-n/react-ros-robot/resource/maps/map.yaml
 ```
 
-## Information
-### EventEmitter
 
-- The EventEmitter is a module that facilitates communication/interaction between objects in Node. EventEmitter is at the core of Node asynchronous event-driven architecture. Many of Node's built-in modules inherit from EventEmitter including prominent frameworks like Express. js
+## Files and Folders
+### node_modules
+All the React JS packages are stored here.
+
+### public
+`js` folder includes necessary ROS navigation packages to enable web based navigation.
+
+`index.html` file calls the packages in js folder and logo files.
+
+### resource
+`maps` folder includes **.pgm** and **.yaml** map files for TurtleBot3.
+
+`media` folder includes video and images.
+
+### src
+`bootstrap` folder includes **.css** files that are responsible of appearance (style) of application.
+
+`components` folder includes **.jsx** files that have the main functionality and outline of application. .JSX language is a mixture of Java Script (.JS) and HTML. 
+- About.jsx is a header option (not used)
+- Body.jsx enables the functionality of navigation bar
+- Connection.jsx creates and visualizes the connection between app and robot 
+- Footer.jsx gives information about application (not used)
+- Header.jsx is the navigation bar of application
+- Home.jsx is the layout of Connection, Teleoperation, RobotState and Map sections      
+- Map.jsx is 2D Map and robot (arrow) visualization (doesn't work)          
+- RobotState.jsx subcribes ROS topics to visualize position and velocity of robot  
+- Teleoperation.jsx creates velocity commands respect to the joystick movement
+
+`scripts` folder includes **config.js** file where system parameters are given.
+```bash
+ROSBRIDGE_SERVER_IP: "192.168.178.22",
+ROSBRIDGE_SERVER_PORT: "9090",
+RECONNECTION_TIMER: 3000,
+CMD_VEL_TOPIC: "/cmd_vel",
+ODOM_TOPIC: "/odom",
+POSE_TOPIC: "/amcl_pose",
+```
+
+`App.css` and `index.css` files are again responsible for the appearance.
+
+`App.js` file calls components file.
 
 
-### roslibjs
-
-- roslibjs is the core JavaScript library for interacting with ROS from the browser. It uses WebSockets to connect with rosbridge and provides publishing, subscribing, service calls, actionlib, TF, URDF parsing, and other essential ROS functionality. roslibjs is developed as part of the Robot Web Tools effort.
-http://wiki.ros.org/roslibjs
-
-
-### rosbridge_suite
-
-- Rosbridge provides a JSON API to ROS functionality for non-ROS programs. There are a variety of front ends that interface with rosbridge, including a WebSocket server for web browsers to interact with. Rosbridge_suite is a meta-package containing rosbridge, various front end packages for rosbridge like a WebSocket package, and helper packages.
-https://wiki.ros.org/rosbridge_suite
-
-
-### rosbridge_server
-
-- Rosbridge server is part of the rosbridge_suite of packages, providing a WebSocket transport layer. A WebSocket is a low-latency, bidirectional communication layer between clients (web browsers) and servers. By providing a WebSocket connection, rosbridge server allows webpages to talk ROS using the rosbridge protocol.
-Rosbridge server creates a WebSocket connection and passes any JSON messages from the WebSocket to rosbridge_library, so rosbridge library can convert the JSON strings into ROS calls. The reverse also happens, with rosbridge library converting any ROS responses into JSON, then passing it to rosbridge server to send over the WebSocket connection.
-http://wiki.ros.org/rosbridge_server
-
-
-### ros2djs
-
-- ros2djs is the standard JavaScript 2D visualization manager for ROS. It is build ontop of roslibjs and utilizes the power of EaselJS. Many standard ROS features like maps are included as part of this library. ros2djs is developed as part of the Robot Web Tools effort.
-http://wiki.ros.org/ros2djs
-
-
-### nav2djs
-
-- nav2djs is a tool that allows for an easy way to display and interact with a robots autonomous navigation capabilities. The main widget renders an image of the robot's internal map (streamed as a nav_msgs/OccupancyGrid message) on an HTML5 canvas element, as well as a icon displaying the robot's current position on the map. Furthermore, users can send navigation goals to the robot by double clicking a location on the map. This widget requires the robot_pose_publisher node to be running. nav2djs is developed as part of the Robot Web Tools effort.
-http://wiki.ros.org/nav2djs
+## To Do
+Fix the problem with **view_map** function in **Map.jsx** file which enables navigation visualization of the robot.
