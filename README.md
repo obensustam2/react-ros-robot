@@ -1,49 +1,54 @@
-# ROS for Beginners III: Web-based Navigation with ROSBridge
-Purpose of the course is to leverage the use of React and JavaScript to control and monitor robot ROS navigation using Web interfaces
+# Resource
+- **[Udemy Course: ROS for Beginners III: Web-based Navigation with ROSBridge](https://www.udemy.com/course/ros-web-nav/)**
+
+# Demonstration
 <p align="center">
-  <img width="900" height="450" src="resource/media/app.png">
-  <br>App Demonstration with TurtleBot3
+  <img width="600" height="600" src="resource/media/react_turtle.gif">
+  <br>Speed commands are send to Turtlebot3 via React app 
 </p>
 
-## Installations
+# Installations
 ```bash
 sudo apt-get install ros-noetic-rosbridge-server
 sudo apt-get install ros-noetic-turtlebot3*
+sudo apt-get install ros-noetic-dwa-local-planner*
+sudo apt install nodejs
+sudo apt install npm
 npm install roslib
 npm install three
 ```
 
-
-## App Creation
+# App Creation (Not necessary with the repository)
 ```bash
+cd react-ros-robot
 npx create-react-app react-ros-robot
 ```
 
-
-## How to use 
+# How to use
+Click Home button when app is displayed in your web browser 
 ```bash
+cd react-ros-robot
 npm start
 roslaunch rosbridge_server rosbridge_websocket.launch
 roslaunch turtlebot3_gazebo turtlebot3_world.launch
 roslaunch turtlebot3_navigation turtlebot3_navigation.launch map_file:=/home/oben-n/react-ros-robot/resource/maps/map.yaml
 ```
 
-
-## Files and Folders
-### node_modules
+# Files and Folders
+## node_modules
 All the React JS packages are stored here.
 
-### public
+## public
 `js` folder includes necessary ROS navigation packages to enable web based navigation.
 
 `index.html` file calls the packages in js folder and logo files.
 
-### resource
+## resource
 `maps` folder includes **.pgm** and **.yaml** map files for TurtleBot3.
 
 `media` folder includes video and images.
 
-### src
+## src
 `bootstrap` folder includes **.css** files that are responsible of appearance (style) of application.
 
 `components` folder includes **.jsx** files that have the main functionality and outline of application. .JSX language is a mixture of Java Script (.JS) and HTML. 
@@ -72,5 +77,5 @@ POSE_TOPIC: "/amcl_pose",
 `App.js` file calls components file.
 
 
-## To Do
+# To Do
 Fix the problem with **view_map** function in **Map.jsx** file which enables navigation visualization of the robot.
